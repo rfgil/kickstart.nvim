@@ -718,6 +718,7 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        rb = { 'standardrb' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -943,6 +944,35 @@ require('lazy').setup({
         org_agenda_files = '~/orgfiles/**/*',
         org_default_notes_file = '~/orgfiles/refile.org',
       }
+    end,
+  },
+  {
+    'nvim-tree/nvim-tree.lua',
+    opts = {
+      update_focused_file = {
+        enable = true,
+      },
+      filters = {
+        custom = { '.DS_Store' },
+      },
+    },
+    config = function(_, opts)
+      require('nvim-tree').setup(opts)
+
+      vim.keymap.set('n', '<leader>ee', '<cmd>NvimTreeToggle<CR>', { desc = 'Toggle file explorer' })
+      vim.keymap.set('n', '<leader>ef', '<cmd>NvimTreeFindFile<CR>', { desc = 'Toggle file explorer on current file' })
+      vim.keymap.set('n', '<leader>ec', '<cmd>NvimTreeCollapse<CR>', { desc = 'Collapse file explorer' })
+      vim.keymap.set('n', '<leader>er', '<cmd>NvimTreeRefresh<CR>', { desc = 'Refresh file explorer' })
+
+      -- disable newtr
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
+
+      -- vim-fugitive :Browse relies on netwr
+      -- updating that use systems open: https://vi.stackexchange.com/questions/38447/vim-fugitive-netrw-not-found-define-your-own-browse-to-use-gbrowse
+      vim.api.nvim_create_user_command('Browse', function(opts1)
+        vim.fn.system { 'open', opts1.fargs[1] }
+      end, { nargs = 1 })
     end,
   },
 
