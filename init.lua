@@ -121,6 +121,9 @@ end)
 -- Enable break indent
 vim.opt.breakindent = true
 
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
+
 -- Save undo history
 vim.opt.undofile = true
 
@@ -156,6 +159,9 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Set vim shell to zsh
+vim.shell = '/bin/zsh -l'
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -188,6 +194,23 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- Add the same navigations keybinds to terminal mode
+vim.keymap.set('t', '<C-h>', '<C-\\><C-N><C-w>h', { desc = 'Move focus to the left' })
+vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-w>l', { desc = 'Move focus to the right' })
+vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-w>j', { desc = 'Move focus to the lower' })
+vim.keymap.set('t', '<C-k>', '<C-\\><C-N><C-w>k', { desc = 'Move focus to the upper' })
+
+-- Move visual selection
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
+-- Make . work with visually selected lines
+vim.keymap.set('v', '.', ':normal .<CR>')
+
+-- Show the next/previous matched string at the center of the screen
+vim.keymap.set('n', 'n', 'nzz')
+vim.keymap.set('n', 'N', 'Nzz')
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
