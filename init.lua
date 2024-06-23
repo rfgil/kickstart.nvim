@@ -998,6 +998,14 @@ require('lazy').setup({
       end, { nargs = 1 })
     end,
   },
+  {
+    'github/copilot.vim',
+    config = function()
+      vim.api.nvim_set_keymap('i', '<C-C>', 'copilot#Accept("<CR>")', { silent = false, expr = true })
+      vim.g.copilot_no_tab_map = true
+      vim.g.copilot_assume_mapped = true
+    end,
+  },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
