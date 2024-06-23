@@ -964,8 +964,16 @@ require('lazy').setup({
     config = function()
       -- Setup orgmode
       require('orgmode').setup {
-        org_agenda_files = '~/orgfiles/**/*',
-        org_default_notes_file = '~/orgfiles/refile.org',
+        org_id_method = 'uuid',
+        org_agenda_span = 'week',
+        org_agenda_files = '~/Desktop/notes/*.org',
+        org_default_notes_file = '~/Desktop/notes/refile.org',
+        org_capture_templates = {
+          t = { description = 'Task', template = '* TODO %?\n  %u' },
+          j = { description = 'Journal', template = '* %U %?\n  %i\n  %a' },
+          n = { description = 'Note', template = '* %U %?\n  %i\n  %a' },
+        },
+        org_adapt_indentation = false,
       }
     end,
   },
@@ -977,6 +985,11 @@ require('lazy').setup({
       },
       filters = {
         custom = { '.DS_Store' },
+      },
+      filesystem_watchers = {
+        ignore_dirs = {
+          'node_modules',
+        },
       },
     },
     config = function(_, opts)
