@@ -1006,6 +1006,7 @@ require('lazy').setup({
       },
       filters = {
         custom = { '.DS_Store' },
+        git_ignored = false,
       },
       filesystem_watchers = {
         ignore_dirs = {
