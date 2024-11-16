@@ -704,6 +704,15 @@ require('lazy').setup({
           end,
         },
       }
+
+      local my_config = require 'ruby_lsp_config'
+
+      require('lspconfig')['ruby_lsp'].setup {
+        mason = false,
+        enabled = true,
+        cmd = { '/Users/rafael/.asdf/shims/ruby-lsp' },
+        init_options = my_config,
+      }
     end,
   },
 
@@ -715,7 +724,7 @@ require('lazy').setup({
       {
         '<leader>f',
         function()
-          require('conform').format { async = true, lsp_format = 'fallback' }
+          require('conform').format { async = true, lsp_fallback = { ruby = false, rb = false } }
         end,
         mode = '',
         desc = '[F]ormat buffer',
