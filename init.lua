@@ -877,6 +877,7 @@ require('lazy').setup({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          { name = 'orgmode' },
         },
       }
     end,
@@ -984,6 +985,8 @@ require('lazy').setup({
     config = function()
       -- Setup orgmode
       require('orgmode').setup {
+        org_log_repeat = 'time',
+        calendar = {},
         org_id_method = 'uuid',
         org_agenda_span = 'week',
         org_agenda_files = '~/Desktop/notes/*.org',
