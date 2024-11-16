@@ -110,6 +110,9 @@ vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
+vim.opt.foldmethod = 'indent'
+vim.opt.foldenable = false -- disable indent folding by default, zi, zm or zM turn it on
+
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
@@ -121,8 +124,11 @@ end)
 -- Enable break indent
 vim.opt.breakindent = true
 
-vim.opt.expandtab = true
-vim.opt.tabstop = 4
+-- :help tabstop, chose the first suggestion approach
+vim.opt.tabstop = 8
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true -- vim.opt.noexpandtab = true
 
 -- Save undo history
 vim.opt.undofile = true
@@ -950,7 +956,7 @@ require('lazy').setup({
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
         additional_vim_regex_highlighting = { 'ruby' },
       },
-      indent = { enable = true, disable = { 'ruby' } },
+      indent = { enable = true, disable = { 'ruby', 'org' } },
       endwise = { -- 'RRethy/nvim-treesitter-endwise',
         enable = true,
       },
