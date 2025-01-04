@@ -207,6 +207,10 @@ vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-w>l', { desc = 'Move focus to the ri
 vim.keymap.set('t', '<C-j>', '<C-\\><C-N><C-w>j', { desc = 'Move focus to the lower' })
 vim.keymap.set('t', '<C-k>', '<C-\\><C-N><C-w>k', { desc = 'Move focus to the upper' })
 
+-- Convert selection to camelCase or snake_case
+vim.keymap.set('v', '<leader>cc', ':s/\\%V_\\(\\l\\)\\%V/\\U\\1/g<CR>', { desc = 'Convert selection to [C]amelCase' })
+vim.keymap.set('v', '<leader>cs', ':s/\\%V\\u\\%V/_\\L&/g<CR>', { desc = 'Convert selection to [S]nake_case' })
+
 -- Move visual selection
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
