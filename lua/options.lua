@@ -3,17 +3,23 @@
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+-- Set to true if you have a Nerd Font installed and selected in the terminal
+vim.g.have_nerd_font = true
+
 -- Make line numbers default
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
+
+vim.o.foldmethod = 'indent'
+vim.o.foldenable = false -- disable indent folding by default, zi, zm or zM turn it on
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
@@ -25,6 +31,12 @@ end)
 
 -- Enable break indent
 vim.o.breakindent = true
+
+-- :help tabstop, chose the first suggestion approach
+vim.o.tabstop = 8
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true -- vim.opt.noexpandtab = true
 
 -- Save undo history
 vim.o.undofile = true
@@ -70,5 +82,8 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.o.confirm = true
+--
+-- Set vim shell to zsh
+vim.shell = '/bin/zsh -l'
 
 -- vim: ts=2 sts=2 sw=2 et

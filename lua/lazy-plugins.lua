@@ -12,6 +12,7 @@
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  { 'tpope/vim-fugitive', dependencies = { 'tpope/vim-rhubarb' } },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -42,6 +43,72 @@ require('lazy').setup({
   require 'kickstart.plugins.mini',
 
   require 'kickstart.plugins.treesitter',
+
+  {
+    'nvim-orgmode/orgmode',
+    event = 'VeryLazy',
+    ft = { 'org' },
+    config = function()
+      -- Setup orgmode
+      require('orgmode').setup {
+        org_log_repeat = 'time',
+        calendar = {},
+        org_id_method = 'uuid',
+        org_agenda_span = 'week',
+        org_agenda_files = '~/Desktop/notes/*.org',
+        org_default_notes_file = '~/Desktop/notes/refile.org',
+        org_capture_templates = {
+          t = { description = 'Task', template = '* TODO %?\\n  %u' },
+          j = { description = 'Journal', template = '* %U %?\\n  %i\\n  %a' },
+          n = { description = 'Note', template = '* %U %?\\n  %i\\n  %a' },
+        },
+        org_adapt_indentation = false,
+      }
+    end,
+  },
+  {
+    'nvim-tree/nvim-tree.lua',
+    opts = {
+      update_focused_file = {
+        enable = true,
+      },
+      filters = {
+        custom = { '.DS_Store' },
+        git_ignored = false,
+      },
+      filesystem_watchers = {
+        ignore_dirs = {
+          'node_modules',
+        },
+      },
+    },
+    config = function(_, opts)
+      require('nvim-tree').setup(opts)
+
+      vim.keymap.set('n', '<leader>ee', '<cmd>NvimTreeToggle<CR>', { desc = 'Toggle file explorer' })
+      vim.keymap.set('n', '<leader>ef', '<cmd>NvimTreeFindFile<CR>', { desc = 'Toggle file explorer on current file' })
+      vim.keymap.set('n', '<leader>ec', '<cmd>NvimTreeCollapse<CR>', { desc = 'Collapse file explorer' })
+      vim.keymap.set('n', '<leader>er', '<cmd>NvimTreeRefresh<CR>', { desc = 'Refresh file explorer' })
+
+      -- disable newtr
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
+
+      -- vim-fugitive :Browse relies on netwr
+      -- updating that use systems open: https://vi.stackexchange.com/questions/38447/vim-fugitive-netrw-not-found-define-your-own-browse-to-use-gbrowse
+      vim.api.nvim_create_user_command('Browse', function(opts1)
+        vim.fn.system { 'open', opts1.fargs[1] }
+      end, { nargs = 1 })
+    end,
+  },
+  {
+    'github/copilot.vim',
+    config = function()
+      vim.api.nvim_set_keymap('i', '<C-C>', 'copilot#Accept(\"<CR>\")', { silent = false, expr = true })
+      vim.g.copilot_no_tab_map = true
+      vim.g.copilot_assume_mapped = true
+    end,
+  },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
