@@ -13,7 +13,7 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
   { 'tpope/vim-fugitive', dependencies = { 'tpope/vim-rhubarb' } },
-
+  { 'tpope/vim-rails' },
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -104,7 +104,7 @@ require('lazy').setup({
   {
     'github/copilot.vim',
     config = function()
-      vim.api.nvim_set_keymap('i', '<C-C>', 'copilot#Accept(\"<CR>\")', { silent = false, expr = true })
+      vim.api.nvim_set_keymap('i', '<C-C>', 'copilot#Accept("<CR>")', { silent = false, expr = true })
       vim.g.copilot_no_tab_map = true
       vim.g.copilot_assume_mapped = true
     end,

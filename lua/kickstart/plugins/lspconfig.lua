@@ -273,14 +273,15 @@ return {
 
       local my_config = require 'ruby_lsp_config'
 
-      require('lspconfig')['ruby_lsp'].setup {
+      vim.lsp.config('ruby', {
         mason = false,
         enabled = true,
         cmd = { 'bundle', 'exec', 'ruby-lsp' },
         init_options = my_config,
         -- settings = my_config,
         -- capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable 'ruby'
     end,
   },
 }

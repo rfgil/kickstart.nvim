@@ -87,3 +87,8 @@ vim.o.confirm = true
 vim.shell = '/bin/zsh -l'
 
 -- vim: ts=2 sts=2 sw=2 et
+
+-- set shadafile='/dev/null'
+
+vim.o.shada = ''
+vim.o.shadafile = '/dev/null'

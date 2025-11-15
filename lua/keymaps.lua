@@ -73,3 +73,20 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- vim: ts=2 sts=2 sw=2 et
+--
+--
+vim.keymap.set('v', '<leader>l', function()
+  -- Prompt user for a single character
+  vim.cmd "echo 'Split by character: '"
+  local char = vim.fn.nr2char(vim.fn.getchar())
+
+  -- Escape magic chars in Lua pattern
+  local escaped = vim.fn.escape(char, [[\.^$*[]/~]])
+  -- vim.notify(vim.inspect(escaped)) -- debug
+
+  -- Build substitution pattern
+  local pattern = string.format('s/%s/\\r%s/ge', escaped, escaped)
+
+  -- Execute on current line
+  vim.cmd(pattern)
+end, { desc = 'Split line by character' })

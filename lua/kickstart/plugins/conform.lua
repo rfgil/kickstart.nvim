@@ -19,7 +19,12 @@ return {
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true, ruby = true }
+        local disable_filetypes = { c = true, cpp = true, javascript = true, ruby = true }
+
+        -- local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+        -- vim.notify('conform.nvim: format_on_save called for bufnr: ' .. bufnr .. ' (filetype: ' .. filetype .. ')', vim.log.levels.ERROR)
+        vim.notify('conform.nvim: format_on_save called for bufnr:' .. vim.bo[bufnr].filetype, vim.log.levels.INFO)
+
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
@@ -36,7 +41,10 @@ return {
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { 'prettier' },
+        typescript = { 'prettier' },
+        typescriptreact = { 'prettier' },
+        javascriptreact = { 'prettier' },
       },
     },
   },
